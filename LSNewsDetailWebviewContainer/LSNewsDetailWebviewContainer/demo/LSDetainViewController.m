@@ -43,6 +43,7 @@
     container.URLString=self.URLString;
     container.cachePolicy=NSURLRequestReturnCacheDataElseLoad;
     [container configueFrame:CGRectMake(0, 0, self.view.frame.size.width, [UIScreen mainScreen].bounds.size.height-64-44)];
+    container.scrollview.delegate=self;
     container.tableview.mj_footer=[MJRefreshAutoNormalFooter footerWithRefreshingTarget:self refreshingAction:@selector(loadMoreData)];
     container.tableview.mj_footer.automaticallyChangeAlpha=YES;
     container.tableview.dataSource=self;
@@ -52,6 +53,16 @@
     self.detailWebviewContainer=container;
     [self.view addSubview:container];
     [self retryClick:nil];
+}
+-(void)scrollViewDidScroll:(UIScrollView *)scrollView
+{
+    if (scrollView==self.detailWebviewContainer.scrollview) {
+        if (scrollView.contentOffset.y>=self.detailWebviewContainer.webview.scrollView.contentSize.height-self.view.frame.size.height+44+46) {
+            self.title=@"松哥博客";
+        }else{
+            self.title=@"";
+        }
+    }
 }
 -(void)setupViews2
 {
