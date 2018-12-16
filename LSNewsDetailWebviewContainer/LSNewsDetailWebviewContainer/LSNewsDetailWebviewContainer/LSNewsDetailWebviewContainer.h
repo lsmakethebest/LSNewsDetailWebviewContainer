@@ -24,13 +24,11 @@
 //底部评论列表
 @property (nonatomic,weak) UITableView *tableview;
 
--(void)configueWebview:(WKWebView*)webview tableview:(UITableView*)tableview frame:(CGRect)frame;
-
--(void)configueFrame:(CGRect)frame;
+//自定义WKWebview和UITableview 不使用默认创建的
+-(void)configueWebview:(WKWebView*)webview tableview:(UITableView*)tableview;
 
 //加载或重新加载URL
 -(void)loadRequest;
-
 
 //加载html字符串
 -(void)loadHTMLString:(NSString*)HTMLString;

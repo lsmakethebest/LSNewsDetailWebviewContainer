@@ -11,6 +11,7 @@
 #import "LSNewsDetailWebviewContainer.h"
 #import "MJRefresh.h"
 #import "UILoading.h"
+#import "Masonry.h"
 @interface LSDetainViewController ()<UITableViewDataSource,UITableViewDelegate,WKNavigationDelegate>
 
 @property (nonatomic,strong) NSMutableArray *datas;//底部tableview的数据
@@ -43,7 +44,7 @@
     LSNewsDetailWebviewContainer *container=[[LSNewsDetailWebviewContainer alloc]init];
     container.URLString=self.URLString;
     container.cachePolicy=NSURLRequestReturnCacheDataElseLoad;
-    [container configueFrame:CGRectMake(0, 0, self.view.frame.size.width, [UIScreen mainScreen].bounds.size.height-64-44)];
+//    [container configueFrame:CGRectMake(0, 0, self.view.frame.size.width, [UIScreen mainScreen].bounds.size.height-64-44)];
     container.scrollview.delegate=self;
     container.tableview.mj_footer=[MJRefreshAutoNormalFooter footerWithRefreshingTarget:self refreshingAction:@selector(loadMoreData)];
     container.tableview.mj_footer.automaticallyChangeAlpha=YES;
@@ -53,6 +54,10 @@
     container.webview.navigationDelegate=self;
     self.detailWebviewContainer=container;
     [self.view addSubview:container];
+    [container mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.top.left.right.mas_equalTo(0);
+        make.bottom.mas_equalTo(-44);
+    }];
     [self loadClick:nil];
 }
 
@@ -66,7 +71,7 @@
     UITableView *tableview=[[UITableView alloc]init];
     
     CGRect frame = CGRectMake(0, 0, self.view.frame.size.width, [UIScreen mainScreen].bounds.size.height-64-44);
-    [container configueWebview:webview tableview:tableview frame:frame];
+//    [container configueWebview:webview tableview:tableview frame:CGRectZero];
     
     container.tableview.mj_footer=[MJRefreshAutoNormalFooter footerWithRefreshingTarget:self refreshingAction:@selector(loadMoreData)];
     container.tableview.mj_footer.automaticallyChangeAlpha=YES;
@@ -76,6 +81,10 @@
     container.webview.navigationDelegate=self;
     self.detailWebviewContainer=container;
     [self.view addSubview:container];
+    [container mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.top.left.right.mas_equalTo(0);
+        make.bottom.mas_equalTo(-44);
+    }];
     [self loadClick:nil];
 }
 
