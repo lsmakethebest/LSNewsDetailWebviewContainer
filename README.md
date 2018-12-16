@@ -35,9 +35,12 @@ make.bottom.mas_equalTo(-44);
 - 2.加载HTML字符串 使用自定义WKWebview和UITableView(此处仅为演示，不是非得这么组合用，你也可以加载HTML使用默认的webview和tableview)
 ```
 LSNewsDetailWebviewContainer *container=[[LSNewsDetailWebviewContainer alloc]init];
-container.URLString=@"http://xueit.cn";;//设置请求地址
-container.cachePolicy=NSURLRequestReturnCacheDataElseLoad;//缓存策略
-container.scrollview.delegate=self;//监听整个大scrollview.contentOffset的变化
+WKWebView *webview=[[WKWebView alloc]init];
+webview.backgroundColor=[UIColor whiteColor];
+
+UITableView *tableview=[[UITableView alloc]init];
+[container configueWebview:webview tableview:tableview];
+
 container.tableview.mj_footer=[MJRefreshAutoNormalFooter footerWithRefreshingTarget:self refreshingAction:@selector(loadMoreData)];
 container.tableview.mj_footer.automaticallyChangeAlpha=YES;
 container.tableview.dataSource=self;
