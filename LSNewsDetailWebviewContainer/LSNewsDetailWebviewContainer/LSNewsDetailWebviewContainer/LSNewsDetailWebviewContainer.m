@@ -129,7 +129,6 @@ scrollview.contentSize=webview.contentSize+tableview.contentSize+tableview.conte
         if (self.webviewContentHeight==height) {
             return;
         }
-        
         self.webviewContentHeight=height;
         CGRect webviewFrame=self.webview.frame;
         if (height>=self.frame.size.height) {
@@ -174,12 +173,13 @@ scrollview.contentSize=webview.contentSize+tableview.contentSize+tableview.conte
     if (y<=(self.webviewContentHeight-viewHeight)) {
         //屏幕上只显示webview的界面 当y在大一点的时候就开始显示 tableview了
         CGRect webviewFrame=self.webview.frame;
-        if (y>=0) {
-            //避免webview内容没有屏幕高 导致在向下拉动的时候引起的bug
-            webviewFrame.origin.y=y;
-            self.webview.frame=webviewFrame;
-            [self.webview.scrollView setContentOffset:CGPointMake(0, y)];
+        if (y<0) {
+            y=0;
         }
+        //避免webview内容没有屏幕高 导致在向下拉动的时候引起的bug
+        webviewFrame.origin.y=y;
+        self.webview.frame=webviewFrame;
+        [self.webview.scrollView setContentOffset:CGPointMake(0, y)];
     }else{
         if(self.webviewContentHeight-viewHeight>0){
             CGRect webviewFrame=self.webview.frame;
@@ -237,6 +237,12 @@ scrollview.contentSize=webview.contentSize+tableview.contentSize+tableview.conte
 -(void)dealloc
 {
     [self removeObservers];
+}
+
+-(void)layoutSubviews
+{
+    [super layoutSubviews];
+    NSLog(@"1111111111");
 }
 
 @end

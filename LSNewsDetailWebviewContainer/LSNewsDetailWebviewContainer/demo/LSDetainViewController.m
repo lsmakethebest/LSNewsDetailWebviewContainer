@@ -14,7 +14,6 @@
 @interface LSDetainViewController ()<UITableViewDataSource,UITableViewDelegate,WKNavigationDelegate>
 
 @property (nonatomic,strong) NSMutableArray *datas;//底部tableview的数据
-
 @property (nonatomic,weak) LSNewsDetailWebviewContainer *detailWebviewContainer;
 @property (weak, nonatomic) IBOutlet UIView *emptyView;
 
@@ -37,6 +36,8 @@
     
     [self.view bringSubviewToFront:self.emptyView];
 }
+
+//使用内部创建的WKWebview和UITableview
 -(void)setupViews1
 {
     LSNewsDetailWebviewContainer *container=[[LSNewsDetailWebviewContainer alloc]init];
@@ -52,24 +53,16 @@
     container.webview.navigationDelegate=self;
     self.detailWebviewContainer=container;
     [self.view addSubview:container];
-    [self retryClick:nil];
+    [self loadClick:nil];
 }
--(void)scrollViewDidScroll:(UIScrollView *)scrollView
-{
-    if (scrollView==self.detailWebviewContainer.scrollview) {
-        if (scrollView.contentOffset.y>=self.detailWebviewContainer.webview.scrollView.contentSize.height-self.view.frame.size.height+44+46) {
-            self.title=@"松哥博客";
-        }else{
-            self.title=@"";
-        }
-    }
-}
+
+//使用自己创建的WKWebview和UITableview
 -(void)setupViews2
 {
     LSNewsDetailWebviewContainer *container=[[LSNewsDetailWebviewContainer alloc]init];
     WKWebView *webview=[[WKWebView alloc]init];
     webview.backgroundColor=[UIColor whiteColor];
-
+    
     UITableView *tableview=[[UITableView alloc]init];
     
     CGRect frame = CGRectMake(0, 0, self.view.frame.size.width, [UIScreen mainScreen].bounds.size.height-64-44);
@@ -83,9 +76,21 @@
     container.webview.navigationDelegate=self;
     self.detailWebviewContainer=container;
     [self.view addSubview:container];
-    [self retryClick:nil];
+    [self loadClick:nil];
 }
-- (IBAction)retryClick:(id)sender {
+
+-(void)scrollViewDidScroll:(UIScrollView *)scrollView
+{
+    if (scrollView==self.detailWebviewContainer.scrollview) {
+        if (scrollView.contentOffset.y>=self.detailWebviewContainer.webview.scrollView.contentSize.height-self.view.frame.size.height+44+46) {
+            self.title=@"松哥博客";
+        }else{
+            self.title=@"";
+        }
+    }
+}
+
+- (IBAction)loadClick:(id)sender {
     
     [UILoading showMessage:@"正在加载" toView:self.view];
     if (self.firstConfigute) {
@@ -101,7 +106,8 @@
 {
     self.emptyView.hidden=YES;
     self.datas=[NSMutableArray array];
-    for (int i=0; i<15; i++) {
+    //一般新闻评论每页数据都是20条
+    for (int i=0; i<20; i++) {
         [self.datas addObject:@"1"];
     }
     [self.detailWebviewContainer.tableview reloadData];
@@ -117,13 +123,26 @@
     [self.detailWebviewContainer scrollToWebviewOrTableView];
 }
 
+- (IBAction)starClick:(UIButton*)sender {
+    sender.selected=!sender.selected;
+}
+- (IBAction)shareClick:(UIButton*)sender {
+
+    UIViewController *vc=[[UIViewController alloc]init];
+    vc.view.backgroundColor=[UIColor whiteColor];
+    vc.title=@"转发";
+    [self.navigationController pushViewController:vc animated:YES];
+}
+
+
 -(void)loadMoreData
 {
-    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-        [self.datas addObject:@"1"];
-        [self.datas addObject:@"1"];
-        [self.datas addObject:@"1"];
-        if (self.datas.count>25) {
+    //延迟模拟网络请求
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.2 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+        for (int i=0; i<20; i++) {
+            [self.datas addObject:@"1"];
+        }
+        if (self.datas.count>=60) {
             [self.detailWebviewContainer.tableview.mj_footer endRefreshingWithNoMoreData];
         }else{
             [self.detailWebviewContainer.tableview.mj_footer endRefreshing];
@@ -148,7 +167,9 @@
 }
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
+    [tableView deselectRowAtIndexPath:indexPath animated:YES];
     UIViewController *vc=[[UIViewController alloc]init];
+    vc.title=@"评论详情";
     vc.view.backgroundColor=[UIColor whiteColor];
     [self.navigationController pushViewController:vc animated:YES];
 }

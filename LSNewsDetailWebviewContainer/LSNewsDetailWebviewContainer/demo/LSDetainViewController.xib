@@ -24,42 +24,73 @@
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="euF-zK-O23">
                     <rect key="frame" x="0.0" y="623" width="375" height="44"/>
                     <subviews>
-                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="4Il-TU-7hp">
-                            <rect key="frame" x="0.0" y="0.0" width="375" height="1"/>
-                            <color key="backgroundColor" white="0.54416232638888884" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="8fy-Ny-vvb" userLabel="share">
+                            <rect key="frame" x="325" y="0.0" width="40" height="44"/>
                             <constraints>
-                                <constraint firstAttribute="height" constant="1" id="RZO-Yn-U9Z"/>
+                                <constraint firstAttribute="width" constant="40" id="BC7-ZN-3Fb"/>
                             </constraints>
-                        </view>
-                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="0kv-vL-Bit">
-                            <rect key="frame" x="245" y="0.0" width="60" height="44"/>
-                            <constraints>
-                                <constraint firstAttribute="width" constant="60" id="qZE-qr-6Jj"/>
-                            </constraints>
-                            <state key="normal" title="评论"/>
+                            <color key="tintColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            <state key="normal" image="toolbar_share_24x24_"/>
                             <connections>
-                                <action selector="commentClick:" destination="-1" eventType="touchUpInside" id="SUU-rL-cPa"/>
+                                <action selector="shareClick:" destination="-1" eventType="touchUpInside" id="Q59-hk-Zj1"/>
+                            </connections>
+                        </button>
+                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="gJb-VT-Ve3" userLabel="star">
+                            <rect key="frame" x="275" y="0.0" width="40" height="44"/>
+                            <constraints>
+                                <constraint firstAttribute="width" constant="40" id="OTg-XL-lqg"/>
+                            </constraints>
+                            <color key="tintColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            <state key="normal" image="toolbar_collect_24x24_"/>
+                            <state key="selected" image="toolbar_collect_press_24x24_"/>
+                            <connections>
+                                <action selector="starClick:" destination="-1" eventType="touchUpInside" id="pMe-ge-Bvx"/>
+                            </connections>
+                        </button>
+                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="0v2-6q-ngO" userLabel="comment">
+                            <rect key="frame" x="225" y="0.0" width="40" height="44"/>
+                            <constraints>
+                                <constraint firstAttribute="width" constant="40" id="SjC-Xo-6Q3"/>
+                            </constraints>
+                            <color key="tintColor" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            <state key="normal" image="toolbar_comment_24x24_"/>
+                            <connections>
+                                <action selector="commentClick:" destination="-1" eventType="touchUpInside" id="Nko-Jh-XWg"/>
                             </connections>
                         </button>
                         <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="写评论" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="sAa-sO-3r0">
-                            <rect key="frame" x="20" y="6" width="195" height="33"/>
+                            <rect key="frame" x="20" y="9" width="185" height="30"/>
                             <nil key="textColor"/>
                             <fontDescription key="fontDescription" type="system" pointSize="14"/>
                             <textInputTraits key="textInputTraits"/>
                         </textField>
+                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="4Il-TU-7hp">
+                            <rect key="frame" x="0.0" y="0.0" width="375" height="1"/>
+                            <color key="backgroundColor" white="0.85625542534722221" alpha="0.68292487157534243" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            <constraints>
+                                <constraint firstAttribute="height" constant="1" id="RZO-Yn-U9Z"/>
+                            </constraints>
+                        </view>
                     </subviews>
                     <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     <constraints>
+                        <constraint firstItem="0v2-6q-ngO" firstAttribute="top" secondItem="euF-zK-O23" secondAttribute="top" id="0FC-kV-0pT"/>
+                        <constraint firstItem="gJb-VT-Ve3" firstAttribute="leading" secondItem="0v2-6q-ngO" secondAttribute="trailing" constant="10" id="1YA-L0-YkF"/>
+                        <constraint firstAttribute="bottom" secondItem="0v2-6q-ngO" secondAttribute="bottom" id="1iF-lE-cqf"/>
+                        <constraint firstItem="8fy-Ny-vvb" firstAttribute="leading" secondItem="gJb-VT-Ve3" secondAttribute="trailing" constant="10" id="74h-hk-QE1"/>
+                        <constraint firstAttribute="trailing" secondItem="8fy-Ny-vvb" secondAttribute="trailing" constant="10" id="7qz-6x-sE7"/>
+                        <constraint firstItem="8fy-Ny-vvb" firstAttribute="centerY" secondItem="euF-zK-O23" secondAttribute="centerY" id="9qL-ox-br5"/>
                         <constraint firstAttribute="height" constant="44" id="GPl-8B-skQ"/>
+                        <constraint firstItem="8fy-Ny-vvb" firstAttribute="top" secondItem="euF-zK-O23" secondAttribute="top" id="HWD-bC-bQu"/>
                         <constraint firstItem="4Il-TU-7hp" firstAttribute="top" secondItem="euF-zK-O23" secondAttribute="top" id="J7R-ul-c01"/>
-                        <constraint firstItem="sAa-sO-3r0" firstAttribute="top" secondItem="4Il-TU-7hp" secondAttribute="bottom" constant="5" id="T2s-s2-aft"/>
+                        <constraint firstItem="0v2-6q-ngO" firstAttribute="leading" secondItem="sAa-sO-3r0" secondAttribute="trailing" constant="20" id="M1D-we-Z1Z"/>
+                        <constraint firstItem="0v2-6q-ngO" firstAttribute="top" secondItem="euF-zK-O23" secondAttribute="top" id="QR7-76-RSy"/>
+                        <constraint firstItem="gJb-VT-Ve3" firstAttribute="top" secondItem="euF-zK-O23" secondAttribute="top" id="Qei-Cm-55M"/>
                         <constraint firstItem="4Il-TU-7hp" firstAttribute="leading" secondItem="euF-zK-O23" secondAttribute="leading" id="WEj-k9-3pA"/>
                         <constraint firstAttribute="bottom" secondItem="sAa-sO-3r0" secondAttribute="bottom" constant="5" id="klH-Jx-JSK"/>
-                        <constraint firstAttribute="bottom" secondItem="0kv-vL-Bit" secondAttribute="bottom" id="mh1-wq-XjS"/>
                         <constraint firstAttribute="trailing" secondItem="4Il-TU-7hp" secondAttribute="trailing" id="mn5-52-MuG"/>
-                        <constraint firstAttribute="trailing" secondItem="0kv-vL-Bit" secondAttribute="trailing" constant="70" id="rpT-Hc-sPR"/>
-                        <constraint firstItem="0kv-vL-Bit" firstAttribute="leading" secondItem="sAa-sO-3r0" secondAttribute="trailing" constant="30" id="sUW-iq-WQ2"/>
-                        <constraint firstItem="0kv-vL-Bit" firstAttribute="top" secondItem="euF-zK-O23" secondAttribute="top" id="yK0-vt-JEL"/>
+                        <constraint firstAttribute="bottom" secondItem="gJb-VT-Ve3" secondAttribute="bottom" id="pbz-dS-0Eu"/>
+                        <constraint firstAttribute="bottom" secondItem="8fy-Ny-vvb" secondAttribute="bottom" id="w8v-kU-3b6"/>
                         <constraint firstItem="sAa-sO-3r0" firstAttribute="leading" secondItem="euF-zK-O23" secondAttribute="leading" constant="20" id="zQH-pj-7HR"/>
                     </constraints>
                 </view>
@@ -70,7 +101,7 @@
                             <rect key="frame" x="141" y="318.5" width="92" height="30"/>
                             <state key="normal" title="点击重新加载"/>
                             <connections>
-                                <action selector="retryClick:" destination="-1" eventType="touchUpInside" id="iVd-Zw-H0i"/>
+                                <action selector="loadClick:" destination="-1" eventType="touchUpInside" id="wlH-kk-mFx"/>
                             </connections>
                         </button>
                     </subviews>
@@ -95,4 +126,10 @@
             <point key="canvasLocation" x="-230" y="26"/>
         </view>
     </objects>
+    <resources>
+        <image name="toolbar_collect_24x24_" width="24" height="24"/>
+        <image name="toolbar_collect_press_24x24_" width="24" height="24"/>
+        <image name="toolbar_comment_24x24_" width="24" height="24"/>
+        <image name="toolbar_share_24x24_" width="24" height="24"/>
+    </resources>
 </document>

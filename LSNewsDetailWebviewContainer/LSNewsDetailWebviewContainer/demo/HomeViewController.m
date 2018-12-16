@@ -14,6 +14,12 @@
 @end
 
 @implementation HomeViewController
+-(void)viewDidLoad
+{
+    [super viewDidLoad];
+    self.title=@"首页";
+}
+
 - (IBAction)clickOne:(id)sender
 {
     LSDetainViewController *VC=[[LSDetainViewController alloc]init];
