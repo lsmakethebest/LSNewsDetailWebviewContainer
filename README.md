@@ -1,7 +1,7 @@
 # 中文说明
 `LSNewsDetailWebviewContainer`是一个可快速集成的新闻详情界面框架,类似今日头条，腾讯新闻，网易新闻等，上面webview(显示网页文章内容)，下面tableview(显示评论列表)
 - 思路
-> 通过reveal对今日头条分析，得知今日头条是外部包装了个UIScrollview，包含WKWebview和UITableview，但是它俩都不可滚动，UIScrollview可滚动，通过监听它的contentOffset改变，从而改变WKWebview和UITableview的contentOffset以及二者的frame。所以我也采用和今日头条相同的方案来实现
+> 通过reveal对今日头条分析，得知今日头条是外部包装了个UIScrollview，包含WKWebview和UITableview，但是二者都不可滚动，UIScrollview可滚动，通过监听UIScrollview的contentOffset改变，从而改变WKWebview和UITableview的contentOffset以及二者的frame。所以本代码方案和今日头条相同
 - 特性
 > 1.可以加载URL也可以加载HTML字符串
 
