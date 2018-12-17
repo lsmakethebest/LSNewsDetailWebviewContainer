@@ -1,6 +1,7 @@
 # 中文说明
 `LSNewsDetailWebviewContainer`是一个可快速集成的新闻详情界面框架,类似今日头条，腾讯新闻，网易新闻等，上面webview(显示网页文章内容)，下面tableview(显示评论列表)
-
+- 思路
+> 通过reveal对今日头条分析，得知今日头条是外部包装了个UIScrollview，包含WKWebview和UITableview，但是它俩都不可滚动，UIScrollview可滚动，通过监听它的contentOffset改变，从而改变WKWebview和UITableview的contentOffset以及二者的frame。所以我也采用和今日头条相同的方案来实现
 - 特性
 > 1.可以加载URL也可以加载HTML字符串
 
@@ -8,6 +9,7 @@
 
 > 3.既可以使用masonry，也可以使用frame(如果使用frame，那么打电话那种界面需要自己适配好，一旦外界适配好那么里面子控件会自动适配)
 
+> 4.使用起来很灵活，本框架只为你设置布局，具体显示啥内容还是由你决定，包括WKWebview代理和UITableview的代理和数据源都是由你来实现
 #### 手动安装
 通过 Clone or download 下载`LSNewsDetailWebviewContainer` 文件夹内的所有内容。将`LSNewsDetailWebviewContainer`文件夹下的`LSNewsDetailWebviewContainer.h`,`LSNewsDetailWebviewContainer.m`拖到你的项目里，然后import `LSNewsDetailWebviewContainer.h`
 #### 使用方式
@@ -35,12 +37,9 @@ make.bottom.mas_equalTo(-44);
 - 2.加载HTML字符串 使用自定义WKWebview和UITableView(此处仅为演示，不是非得这么组合用，你也可以加载HTML使用默认的webview和tableview)
 ```
 LSNewsDetailWebviewContainer *container=[[LSNewsDetailWebviewContainer alloc]init];
-WKWebView *webview=[[WKWebView alloc]init];
-webview.backgroundColor=[UIColor whiteColor];
-
-UITableView *tableview=[[UITableView alloc]init];
-[container configueWebview:webview tableview:tableview];
-
+container.URLString=@"http://xueit.cn";;//设置请求地址
+container.cachePolicy=NSURLRequestReturnCacheDataElseLoad;//缓存策略
+container.scrollview.delegate=self;//监听整个大scrollview.contentOffset的变化
 container.tableview.mj_footer=[MJRefreshAutoNormalFooter footerWithRefreshingTarget:self refreshingAction:@selector(loadMoreData)];
 container.tableview.mj_footer.automaticallyChangeAlpha=YES;
 container.tableview.dataSource=self;
